@@ -1544,10 +1544,10 @@ def get_student_attendance(lecture_counter,student_counter):
 
 
 
-# if __name__ == '__main__':
-    # app.debug = True
-    # app.run()
-
-def main():
+if __name__ == '__main__':
     app.debug = True
     app.run()
+
+# def main():
+#     app.debug = True
+#     app.run()
