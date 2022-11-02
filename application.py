@@ -1,6 +1,6 @@
 from flask import Flask, session, jsonify, redirect, url_for, abort, request, render_template as flask_render_template
 from flask import make_response, g
-import face_recognition
+# import face_recognition
 import json
 import os
 import sys

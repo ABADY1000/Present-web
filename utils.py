@@ -51,7 +51,12 @@ def database_access(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         if 'dbc' not in g:
-            g.db_connection = connect(host="localhost", user="hadhir", passwd="kau2020", database="hadhir")
+            g.db_connection = connect(
+                host="h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+                user="jgw76l205zwohmlz", 
+                passwd="zvxykqu68g04eb2n", 
+                database="b6z3aan51fd50ksy"
+            )
             g.dbc = g.db_connection.cursor()
             r = func(*args, **kwargs)
             g.dbc.close()
