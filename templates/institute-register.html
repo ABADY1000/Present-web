@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/pre-includes.html" %}
+    <!--Page specific custom stylesheets-->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/forms.css')}}" />
+</head>
+<body>
+<main class="bg-light">
+    <section>
+        <div class="container-fluid row max-row-no-nav justify-content-around align-items-center">
+            <div class="col-10 col-sm-8 col-md-8 col-lg-7 col-xl-5 form-container">
+                <a href="{{url_for('index')}}"><img src="{{url_for('static', filename='resources/images/hadhir-logo.svg')}}" /></a>
+                <h2>{{_register_header}}</h2>
+                {% if successful_registration:%}
+                <p>{{_successful_registration}}</p>
+                <hr>
+                <a href="{{url_for('login')}}">{{_login}}</a>
+                {% else: %}
+                    {% if error is defined %}
+                    <p class="error-msg">{{error}}</p>
+                    {% endif %}
+                    <form action="{{url_for('institute_register')}}" method="post" id="form-institute">
+                        <label >{{_name}}</label>
+                        <input type="text" class="form-control" name="institute-name" id="institute-name"  required>
+
+                        <label >{{_email}}</label>
+                        <input type="email" class="form-control" name="institute-email" id="institute-email" required>
+                        {% if edit : %}
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label >{{_old_password}}</label>
+                                <input type="password" class="form-control" name="institute-old-password">
+                            </div>
+                            <div class="col-md-6">
+                                <label >{{_new_password}}</label>
+                                <input type="password" class="form-control" name="institute-new-password">
+                            </div>
+                        </div>
+                        {% else:%}
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label >{{_password}}</label>
+                                    <input type="password" class="form-control" name="institute-password" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label >{{_password_confirm}}</label>
+                                    <input type="password" class="form-control" name="institute-confirm-password" required>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if edit :%}
+                        <label >{{_institute_code}}</label>
+                        <input type="text" class="form-control" name="institute-code" value="{{institute_code}}" required disabled>
+                        {% endif%}
+                        <label >{{_subscription}}</label>
+                        <select class="form-control" name="institute-subscription" id="institute-subscription"  required>
+                            <option value="FREE" {{free}}>{{_free_package}}</option>
+                            <option value="STANDARD" {{standard}}>{{_standard_package}}</option>
+                            <option value="PREMIUM" {{premium}}>{{_premium_package}}</option>
+                        </select>
+
+                        <button  class="form-control btn-lg"  type="submit" name="institute-submit" id="institute-submit">
+                            {% if edit:%}
+                                {{_edit_btn}}
+                            {% else:%}
+                                {{_register_btn}}
+                            {% endif %}
+                        </button>
+                        {% if edit:%}
+                            <button  class="form-control btn-lg delete"  type="button" data-toggle="modal" data-target="#delete-confirm"  >
+                                {{_delete_btn}}
+
+                            </button>
+                        {% endif %}
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</main>
+{% include "dashboard/modules/delete.html" %}
+{% include "common/post-includes.html" %}
+{% if edit :%}
+    <script>
+        $(document).ready(function () {
+            $("#institute-name").val('{{institute_name}}');
+            $("#institute-email").val("{{institute_email}}");
+            $("#institute-subscription").val("{{institute_subscription}}");
+            $("#institute-subscription").attr('disabled',true);
+            $('#institute-submit').click(function () {
+                $('#form-institute').attr('action',"{{url_for('edit_institute')}}").submit();
+            });
+            $('#delete').click(function () {
+                $('#form-institute').attr('action',"{{url_for('delete_institute')}}").submit();
+            });
+        });
+    </script>
+{% endif %}
+</body>
+</html>

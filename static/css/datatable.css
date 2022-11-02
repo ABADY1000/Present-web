@@ -1,0 +1,133 @@
+.tables{
+    margin-bottom: 10px;
+
+}
+.tables .margin{
+    margin-bottom: 20px;
+}
+.tables .table td{
+    text-align: center;
+}
+.tables .table th{
+    text-align: center;
+
+}
+.tables thead td{
+    font-weight: bold;
+}
+.tables .fa-times-circle{
+    color: var(--theme-reject);
+}
+.tables .fa-check-circle{
+    color: var(--theme-primary);
+}
+.tables .table td{
+    background-color: #f8f9fa;
+}
+.tables tr:hover td{
+    cursor: pointer;
+    background-color: #eaeaea;
+}
+
+.tables .pres-table{
+    text-align: left;
+}
+@media (max-width: 892px){
+    .tables .class-status{
+        margin: 30px 0;
+    }
+    .tables .pres-table{
+        text-align: center;
+    }
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
+    float: right !important;
+    background-color: var(--theme-primary) !important;
+}
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before{
+    float: right !important;
+    background-color: var(--theme-reject) !important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
+    display: inline-block !important;
+    margin-left: 8px !important;
+    position: static; !important;
+}
+div.dataTables_wrapper div.dataTables_info{
+    color: var(--theme-primary) !important;
+    font-weight: bold;
+}
+@media (max-width: 768px) {
+    div.dataTables_wrapper div.dataTables_info{
+        margin-bottom: 10px !important;
+
+        font-size: 25px!important;
+    }
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: left !important;
+
+}
+div.dataTables_wrapper div.dataTables_filter label{
+    color: var(--secondary) !important;
+    font-weight: bold;
+}
+div.dataTables_wrapper div.dataTables_filter input{
+    margin-right: 5px !important;
+    background-image: url("../resources/images/searsh.svg");
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position-x: 5px;
+    background-position-y: 3px;
+    background-color: inherit;
+    border: none;
+    border-bottom: 1px solid #919191;
+    border-radius: 0;
+    width: 160px;
+}
+div.dataTables_wrapper div.dataTables_filter input:focus{
+
+    box-shadow: none !important;
+}
+
+.tables  hr
+{
+    margin: 0;
+    padding: 0;
+    border-bottom:solid #b9b9b9 1px;
+}
+
+/*.tables #table-courses_filter a,.tables #table-classes_filter a{*/
+/*    margin-left: 15px;*/
+/*}*/
+.tables #table-classes .not-connect{
+    color: var(--theme-reject);
+}
+.tables #table-classes .connect{
+    color: var(--theme-primary);
+}
+
+.tables .dataTables_wrapper{
+    width: 100%;
+   margin: 0 auto;
+}
+.dataTables_scrollBody table{
+    margin: 0 !important;
+}
+.dataTables_scrollHeadInner{
+    margin: 0 auto;
+    padding: 0 !important;
+    width: 100%!important;
+
+}
+.dataTables_scrollHeadInner table{
+    width: 100% !important;
+}
+.dataTables_scrollHeadInner{
+    margin-right: 0!important;
+}

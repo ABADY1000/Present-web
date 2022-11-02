@@ -1,0 +1,34 @@
+<!-- Modal of add class -->
+<div class="modal fade " id="details-class-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable " role="document">
+        <div class="modal-content bg-light">
+            <div class="modal-header section-info">
+                <h5 class="modal-title section-name" >{{_class_details}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger class-error" style="display: none">{{_error_message}}</div>
+                <form class="form-container details-class-form" method="post">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label>{{_number}}</label>
+                            <input type="text" class="form-control" name="class-number" id="class-number" required>
+                        </div>
+                        <div class=" col-md-6">
+                            <label >{{_camera_number}}</label>
+                            <input type="text" class="form-control" name="camera-number" id="camera-number" required>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="modal-footer form-container">
+                    <input type="submit" class="btn delete red" id="delete-class" value="{{_delete}}" >
+                    <input type="submit" class="btn gray" data-dismiss="modal" value="{{_cancel}}" style="margin-right: auto" >
+                    <input type="submit" class="btn green" id="edit-class" value="{{_edit}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

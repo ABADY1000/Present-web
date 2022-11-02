@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/pre-includes.html" %}
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% block body %}{% endblock %}
+    {% include "/common/post-includes.html" %}
+    {% block script %} {% endblock %}
+</body>
+</html>

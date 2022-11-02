@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "common/pre-includes.html" %}
+    <!-- datatable-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/datatable/responsive.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable/responsive.bootstrap4.min.css')}}">
+    <!--Custom stylesheet-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/page-scroll.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/components-style.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/forms.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/class-details.css')}}" />
+    <style>
+        .fixed_header{
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .fixed_header tbody{
+            display:block;
+            width: 100%;
+            overflow: auto;
+            height: 350px;
+        }
+
+        .fixed_header thead tr {
+            display: block;
+        }
+
+
+        .fixed_header th, .fixed_header td {
+            padding: 5px;
+            text-align: right;
+            width: 200px;
+        }
+    </style>
+
+</head>
+<body class="bg-light">
+<header>
+    {% include 'common/private-header.html'%}
+</header>
+<main class="container">
+
+    <section class="section-info">
+        <div class="row ">
+            <div class="section-name container">
+                {{ _class_details }}
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section class="class-details">
+        <div class="row" >
+            <div class="col-lg-6 col-12 display-class">
+                <form class="form-container details-class-form" method="post">
+                    <label>{{ _number }}</label>
+                    <input type="text" class="form-control" name="class-number" id="class-number" value="{{ class_number }}" required>
+                    <div class="form-row">
+                        <div class="col-12 col-md-6">
+                            <label >{{ _camera_number }}</label>
+                            <input type="text" class="form-control" name="camera-number" id="camera-number" value="{{ camera_ip }}" required>
+                        </div>
+                        <div class="col-md-6 col-12 text-center">
+                            <div class="status text-center">
+                                {{ _status }}
+                            </div>
+                            <div class="status text-center" style="color: {{ status_color }}">
+                                {{ camera_status }}
+                            </div>
+                        </div>
+                    </div>
+                    <textarea class="form-control" rows="10" id="class-log" style="direction:ltr; text-align:left;"></textarea>
+                </form>
+            </div>
+            <div class="col-lg-6 col-12 class-status ">
+                <div class="row font-weight-bold">
+                    <div class="col">{{ _current_course }}</div>
+                    <div class="col">{{ _instructor }}</div>
+                    <div class="col">{{ _remaining_time }}</div>
+                </div>
+                <div class="row ">
+                    <div class="col">{{ course_name }}</div>
+                    <div class="col">{{ course_instructor }}</div>
+                    <div class="col" id="remaining">{{ remaining }}</div>
+                </div>
+                <h1 class="model-name">{{_presents}}</h1>
+                <hr>
+                <table id="table-lecture-add" class="table table-borderless fixed_header">
+                        <thead>
+                        <tr>
+                            <th>{{ _number }}</th>
+                            <th>{{ _name }}</th>
+                            <th>{{ _attend }}</th>
+                        </tr>
+                        </thead>
+                        <tbody id="class-table-body">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer form-container">
+            <input type="submit" class="btn delete red" id="delete-class" value="{{_delete}}" >
+            <a href="{{ url_for('dashboard') }}" class="btn gray"   style="margin-right: auto" >{{_cancel}}</a>
+            <input type="submit" class="btn green" id="edit-class" value="{{_edit}}">
+        </div>
+    </section>
+
+</main>
+{% include "/common/post-includes.html" %}
+<!-- datatable-->
+<script src="{{url_for('static', filename='js/datatable/jquery.dataTables.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/datatable/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/datatable/dataTables.responsive.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/datatable/responsive.bootstrap4.min.js')}}"></script>
+<!-- progress   -->
+<script src="{{url_for('static', filename='js/progress/circle-progress.min.js')}}"></script>
+{% if local == "arabic" %}
+<script src="{{url_for('static', filename='js/main.js')}}"></script>
+{% else %}
+<script src="{{url_for('static', filename='js/main-en.js')}}"></script>
+{% endif %}
+<script>
+    $(document).ready(function () {
+        $('#delete-class').click(function () {
+            window.location.href="/class-delete";
+        });
+        $('#edit-class').click(function () {
+            $('.details-class-form').attr('action','/class-edit').submit();
+        });
+
+        setInterval(function () {
+            $.ajax({
+                url:"/class-log",
+                type:'GET',
+            })
+                .done(function (data) {
+                    if (data.error){
+                        $('#class-log').html(data.error)
+                    }
+                    else {
+                        var textarea = document.getElementById('class-log');
+                        $('#class-log').html(data.log);
+                        textarea.scrollTop = textarea.scrollHeight;
+                        $('#class-table-body').empty();
+                        for(var i =0;i<data.students.length;i++){
+                            $('#class-table-body').append("<tr><td>"+data.students[i][0]+"</td>"+
+                                "<td>"+data.students[i][1]+" "+data.students[i][2]+"</td>"+
+                                 "<td>"+data.student_attend[i]+"</td>"+
+                                "</tr>")
+                        }
+                        $('#remaining').html(data.time);
+                    }
+                });
+
+        },5000)
+    });
+
+</script>
+</body>
+</html>

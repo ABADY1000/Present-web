@@ -1,0 +1,42 @@
+
+<!-- model for add lecture        -->
+<div class="modal fade " id="add-lecture" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable " role="document">
+        <div class="modal-content bg-light ">
+            <div class="modal-header section-info">
+                <h5 class="modal-title section-name" >{{_add_lecture}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body tables">
+                <div class="alert alert-danger lecture-add-error" style="display: none">{{_error_message}}</div>
+                <form class="form-container add-lecture-form" method="post">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label>{{_start}}</label>
+                            <input type="text" class="form-control" name="start-time" placeholder=" HH:MM " required >
+                        </div>
+                        <div class=" col-md-6">
+                            <label >{{_end}}</label>
+                            <input type="text" class="form-control" name="end-time" placeholder=" HH:MM " required >
+                        </div>
+                    </div>
+
+                    <label>{{_day}}</label>
+                    <input type="date" class="form-control" name="day" required>
+                    <label>{{_classroom}}</label>
+                    <select class="form-control" name="classroom" id="classrooms-add-lecture">
+
+                    </select>
+
+                </form>
+
+            </div>
+            <div class="modal-footer form-container">
+                <input type="submit" class="btn gray" data-dismiss="modal" value="{{_cancel}}">
+                <input type="submit" class="btn green" id="add-lecture-btn" value="{{_add}}">
+            </div>
+        </div>
+    </div>
+</div>

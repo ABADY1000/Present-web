@@ -1,0 +1,23 @@
+.form-container .status{
+    padding-right: 20px;
+    margin-top: 13px;
+
+}
+.class-details .form-container{
+    margin: 0;
+}
+.class-details .class-status{
+    margin: 10px 0;
+}
+
+
+.class-status>div:nth-child(1),.class-status>div:nth-child(2){
+    padding-right: 15px;
+}
+.class-details  .buttons .gray{
+    margin-right: auto;
+    margin-left: 20px;
+}
+.class-details .buttons .green{
+    margin-left: 20px;
+}

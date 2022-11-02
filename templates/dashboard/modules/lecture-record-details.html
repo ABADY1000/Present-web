@@ -1,0 +1,63 @@
+<!-- model for add lecture        -->
+<div class="modal fade " id="edit-lecture" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable " role="document">
+        <div class="modal-content bg-light ">
+            <div class="modal-header section-info">
+                <h5 class="modal-title section-name" > {{_lecture_details}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body tables">
+                <div class="alert alert-danger lecture-details-error" style="display: none">{{_error_message}}</div>
+                <form class="form-container edit-lecture-form" method="post">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label>{{_start}}</label>
+                            <input type="text" class="form-control" name="start-time" id="lecture-start" placeholder=" HH:MM " required>
+                        </div>
+                        <div class=" col-md-6">
+                            <label >{{_end}}</label>
+                            <input type="text" class="form-control" name="end-time" id="lecture-end" placeholder=" HH:MM " required>
+                        </div>
+                    </div>
+
+                    <label>{{_day}}</label>
+                    <input type="date" class="form-control" name="day" id="lecture-day" >
+
+
+                    <label>{{_classroom}}</label>
+                    {% if session["account"]["account_type"]== "institute" %}
+                    <select class="form-control" name="classroom" id="lecture-classroom">
+
+                    </select>
+                    {% else: %}
+                    <input type="text" class="form-control" name="classroom"  id="lecture-classroom-instructor" disabled>
+                    {% endif %}
+                    <h1 class="model-name"> {{_students}}</h1>
+                    <hr>
+                    <table id="table-students-edit" class="table table-borderless table-sm nowrap ">
+                        <thead>
+                        <tr>
+                            <th>{{_table_header_number}}</th>
+                            <th>{{_table_header_name}}</th>
+                            <th>{{_table_header_attendance}}</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-lecture-edit-body">
+
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
+            <div class="modal-footer form-container">
+                {% if session["account"]["account_type"]== "institute" %}
+                <input type="submit" class="btn red" id="delete-lecture-btn"  value="{{_delete}}">
+                {% endif %}
+                <input type="submit" class="btn gray" data-dismiss="modal" value="{{_cancel}}">
+                <input type="submit" class="btn green" id="edit-lecture-btn" value="{{_edit}}">
+            </div>
+        </div>
+    </div>
+</div>

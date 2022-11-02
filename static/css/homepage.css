@@ -1,0 +1,169 @@
+﻿.why-section {
+    background: url(../resources/images/background.jpg);
+    background-size: cover;
+
+}
+
+.why-content {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.canvas {
+    position: relative;
+    padding: 30px;
+    height: 400px;
+    width: 480px;
+}
+
+.canvas img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.why-content .btn {
+    background: var(--theme-primary);
+    color: var(--theme-contrast);
+    transition: padding-left .3s;
+}
+
+.why-content .btn:hover {
+    padding-left: 25px;
+}
+
+.features-section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.feature-card img {
+    width: 5rem;
+    transition: transform .6s;
+}
+
+.feature-card:hover img {
+    transform: scale(1.1,1.1);
+}
+
+.feature-card p {
+    text-align: center;
+}
+
+.feature-card {
+    border: 1px solid var(--secondary);
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+}
+@media (max-width:  768px) {
+    .feature-card{
+       margin: auto;
+        margin-bottom: 20px;
+        max-width: 400px;
+    }
+}
+
+.feature-card:hover {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.order-camera {
+    background: url("../resources/images/classroom-crop.png");
+    background-size: cover;
+    min-height: 400px;
+}
+.order-camera .img-order{
+    z-index: 1;
+    min-height: 400px;
+}
+
+.order-camera .overlay{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:#0f250e ;
+    opacity: 0.7;
+    z-index: 2;
+}
+
+.order-camera  .order-content{
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-weight: bold;
+    z-index: 3;
+    color: white;
+    font-size:50px;
+    left: 0;
+    right: 0;
+    top: 20%;
+    margin: auto;
+
+}
+@media (max-width:  768px){
+    .order-camera  .order-content{
+        font-size:35px;
+        top: 30%;
+    }
+
+}
+.order-camera  .order-content button{
+    background-color: white;
+    color: var(--theme-primary);
+}
+.order-camera  .order-content button:hover{
+    background-color: var(--theme-primary);
+    color: white;
+}
+.subs-section{
+    background-color: white;
+    color: var(--secondary);
+}
+.subs-section .subs-list{
+    margin: 0;
+    padding: 0;
+
+}
+
+.subs-section .feature-card{
+    padding: 20px;
+    border: 1px solid black;
+
+}
+.subs-section:hover img{
+    transform: scale(1);
+}
+.subs-section .feature-card:hover{
+    background-color:inherit ;
+}
+.subs-section img{
+    padding-bottom: 15px;
+    margin-left: 10px;
+    width: 2rem;
+}
+.subs-section .btn{
+    border: 1px solid var(--secondary);
+    border-radius: 10px;
+    color: var(--secondary);
+    margin-bottom: 10px;
+    margin-top: 30px;
+
+}
+.subs-section h1{
+    color: var(--theme-primary);
+    margin-bottom:20px ;
+    margin-top:20px ;
+
+}
+.subs-section .btn-sliver{
+    background-color: var(--theme-silver);
+    color: white;
+    border: none;
+}
+.subs-section .btn-gold{
+    border: none;
+    background-color: var(--theme-gold);
+    color: white;
+}
+

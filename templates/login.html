@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/pre-includes.html" %}
+    <!--Page specific custom stylesheets-->
+    <link rel="stylesheet" href="static/css/forms.css" />
+</head>
+<body>
+    <main class="bg-light">
+        <section>
+            <div class="container-fluid row max-row-no-nav justify-content-around align-items-center">
+                <div class="col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3 form-container">
+                    <a href="{{url_for('index')}}"><img src="static/resources/images/hadhir-logo.svg" /></a>
+                    <h2>{{_login_header}}</h2>
+                    {% if error is defined %}
+                    <p class="error-msg">{{error}}</p>
+                    {% endif %}
+                    <form action="{{url_for('login')}}"  method="post" class="form-group">
+                        <label for="login-email">{{_email}}</label>
+                        <input type="email" class="form-control"  name="login-email"  required/>
+                        <label for="login-password">{{_password}}</label>
+                        <input  type="password" class="form-control" name="login-password" required/>
+                        <button type="submit" class="form-control btn-lg">{{_login_btn}}</button>
+                    </form>
+                    <hr />
+                    <a href="{{url_for('register')}}">{{_register_reminder}}</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include "common/post-includes.html" %}
+</body>
+</html>

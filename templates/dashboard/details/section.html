@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "common/pre-includes.html" %}
+    <!-- datatable-->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/datatable/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/datatable/responsive.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/datatable/responsive.bootstrap4.min.css')}}">
+    <!--Custom stylesheet-->
+
+    <link rel="stylesheet" href="{{url_for('static',filename='css/forms.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/components-style.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/datatable.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/page-scroll.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/course-details.css')}}" />
+
+
+</head>
+<body class="bg-light">
+    <header>
+        {% include 'common/private-header.html'%}
+    </header>
+    <main class="container">
+        <section class="course-info section-info">
+            <div class="row">
+                <div class="col course-name section-name">
+                        {{_header_details}}
+                </div>
+                    <div class="col ">
+                        <div class="row">
+                            <div class="progress-name progress-circle-name ">
+                                {{_header_attendance}}
+                            </div>
+                            <div class="progress-circle position-relative " data-value="{{attend_circle}}">
+                                <div class="position-absolute percentage">
+                                    {{attend_section}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </section>
+        <hr>
+        <section class="course-details tables">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <form class="form-container" id="section-form" method="post">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="section-number">{{_section_number}}
+                                </label>
+                                <input type="text" class="form-control editable" id="section-number" name="section-number" required >
+                            </div>
+                            <div class=" col-md-6">
+                                <label for="section-course-number" >{{_course_number}}</label>
+                                <input type="text" class="form-control editable" id="section-course-number" name="course-number" required>
+                            </div>
+                        </div>
+
+                        <label for="section-course-name">{{_course_name}}</label>
+                        <input type="text" class="form-control editable" id="section-course-name" name="course-name" required>
+
+                        <label for="section-instructor" class="remove-instructor" >{{_section_instructor}}</label>
+                        {% if session["account"]["account_type"] == "institute"%}
+                            <select name="section-instructor" class="form-control">
+                                {% for i in range(instructors|length)%}
+                                    {% if instructors[i][0] == section_info[0][5]:%}
+                                        <option value="{{instructors[i][0]}}" selected>{{instructors[i][1]}} {{instructors[i][2]}}</option>
+                                    {% else: %}
+                                    <option value="{{instructors[i][0]}}">{{instructors[i][1]}} {{instructors[i][2]}}</option>
+                                    {%endif%}
+                                {% endfor %}
+                            </select>
+                        {% else: %}
+                            <input type="text" class="form-control remove-instructor editable" id="section-instructor"
+                                   name="section-instructor" required>
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="col-lg-6 col-12 " id="lecture-dates">
+                    <table id="table-lecture-dates"  class="table table-borderless table-sm nowrap">
+                        <thead>
+                            <tr>
+                                <th>{{_table_header_day}}</th>
+                                <th>{{_table_header_time}}</th>
+                                <th>{{_table_header_classroom}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% for i in range(section_schedule|length)%}
+                                    <tr>
+                                        <td >{{days[section_schedule[i][4]]}}</td>
+                                        <td data-toggle="modal" data-target="#edit-lecture-date" class="schedule-details" data-id="{{section_schedule[i][0]}}">{{section_schedule[i][2]}} - {{section_schedule[i][3]}} </td>
+                                        <td data-toggle="modal" data-target="#edit-lecture-date" class="schedule-details" data-id="{{section_schedule[i][0]}}">{{section_schedule[i][1]}}</td>
+                                    </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                {% if session["account"]["account_type"] == "institute" or session["account"]["account_type"] == "instructor": %}
+                <div class="col-lg-6 col-12" id="lecture-students">
+                    <table id="table-students" class="table table-borderless table-sm nowrap ">
+                        <thead>
+                            <tr>
+                                <th>{{_table_header_number}}</th>
+                                <th>{{_table_header_name}}</th>
+                                <th>{{_table_header_email}}</th>
+                                <th>{{_table_header_attendance}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% for i in range(section_students|length)%}
+                                    <tr>
+                                        <td>{{section_students[i][1]}}</td>
+                                        <td data-toggle="modal" data-target="#edit-student-model" data-id="{{section_students[i][0]}}" class="student-details">{{section_students[i][2]}} {{section_students[i][3]}}</td>
+                                        <td data-toggle="modal" data-target="#edit-student-model" data-id="{{section_students[i][0]}}" class="student-details">{{section_students[i][4]}}</td>
+                                        <td data-toggle="modal" data-target="#edit-student-model" data-id="{{section_students[i][0]}}" class="student-details">
+                                            {% if total_lecture> 0: %}
+                                            {{student_attend[i]}}
+                                            {% else: %}
+                                            0.00 %
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+                <div class="col-lg-6 col-12" id="lectures">
+                    <table id="table-lectures" class="table table-borderless table-sm nowrap ">
+                        <thead>
+                            <tr>
+                                <td>{{_table_header_date}}</td>
+                                <td>{{_table_header_time}}</td>
+                                <td>{{_table_header_attendance}}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% for i in range(section_records|length)%}
+                                    <tr>
+                                        <td>{{section_records[i][1]}}</td>
+                                        <td data-toggle="modal" data-target="#edit-lecture" data-id="{{section_records[i][0]}}" class="lecture-details">
+                                            {{section_records[i][2]}} - {{section_records[i][3]}}
+                                        </td>
+                                        <td data-toggle="modal" data-target="#edit-lecture" data-id="{{section_records[i][0]}}" class="lecture-details">
+                                            {% if session["account"]["account_type"] == "student": %}
+                                                {% if attend[i]: %}
+                                                <img src="{{url_for('static',filename='resources/images/right.svg')}}" height="20px" width="20px">
+                                                {% else: %}
+                                                <img src="{{url_for('static',filename='resources/images/wrong.svg')}}" height="20px" width="20px">
+                                                {% endif %}
+                                            {% elif total_enrolled > 0: %}
+                                            {{lecture_attend[i]}}
+
+                                            {% else: %}
+                                            0.00 %
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row buttons form-container">
+                {% if session["account"]["account_type"]== "institute" %}
+                <input type="submit" id="delete-section"  class="btn  red " value="{{_delete}}">
+                {% endif %}
+                <input type="submit" id="back"  class="btn  gray " value="{{_cancel}}" onclick="location.href='/dashboard'">
+                {% if session["account"]["account_type"]== "institute" %}
+                <input type="submit"  id="save-change" class="btn green " value="{{_edit}}">
+                {% endif %}
+            </div>
+        </section>
+
+        {% if session["account"]["account_type"]== "institute" %}
+        {% include "//dashboard/modules/student-section-record-details.html" %}
+        {% include "//dashboard/modules/lecture-record-details.html" %}
+        {% include "//dashboard/modules/student-section-record-add.html" %}
+        {% include "//dashboard/modules/lecture-record-add.html" %}
+        {% include "//dashboard/modules/lecture-schedule-add.html" %}
+        {% include "//dashboard/modules/lecture-schedule-details.html" %}
+
+        {% endif %}
+        {% if session["account"]["account_type"]== "instructor" %}
+        {% include "//dashboard/modules/student-section-record-details.html" %}
+        {% include "//dashboard/modules/lecture-record-details.html" %}
+        {% endif %}
+
+
+
+
+
+
+
+
+    </main>
+    <!--jquery-->
+    <script src="{{url_for('static',filename='js/jquery/jquery-3.4.1.min.js')}}" ></script>
+    <!--bootstrap-->
+    <script src="{{url_for('static',filename='js/bootstrap/bootstrap-rtl.min.js')}}" ></script>
+    <!-- datatable-->
+    <script src="{{url_for('static',filename='js/datatable/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/datatable/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/datatable/dataTables.responsive.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/datatable/responsive.bootstrap4.min.js')}}"></script>
+    <!-- progress   -->
+    <script src="{{url_for('static',filename='js/progress/circle-progress.min.js')}}"></script>
+    {% if local == "arabic" %}
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    {% else %}
+    <script src="{{url_for('static', filename='js/main-en.js')}}"></script>
+    {% endif %}
+    <script src="{{url_for('static',filename='js/section.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#save-change').click(function () {
+                $('#section-form').attr('action','/section-edit').submit();
+            });
+            $('#delete-section').click(function () {
+                $('#section-form').attr('action','/section-delete').submit();
+            });
+            $('#section-number').val('{{section_info[0][0]}}');
+            $('#section-course-number').val('{{section_info[0][1]}}');
+            $('#section-course-name').val('{{section_info[0][2]}}');
+            $('#section-instructor').val('{{section_info[0][3]}} {{section_info[0][4]}}');
+        });
+
+    </script>
+
+    {% if session["account"]["account_type"] == "instructor":%}
+    <script>
+        $(document).ready(function () {
+            $('.remove-instructor').css('display','none');
+            $('.editable').prop('disabled',true);
+            $('.schedule-details').removeAttr('data-toggle');
+            $('.schedule-details').removeAttr('data-target');
+            $('#lecture-start').attr('disabled','disabled');
+            $('#lecture-end').attr('disabled','disabled');
+            $('#lecture-day').attr('disabled','disabled');
+
+            var id =["#add-schedule-icon","#add-record-icon","#add-student-record-icon"]
+            for (var i=0; i<id.length;i++){
+                $(id[i]).remove();
+            }
+        });
+    </script>
+    {% endif%}
+    {% if session["account"]["account_type"] == "student":%}
+    <script>
+        $(document).ready(function () {
+            $('.editable').prop('disabled',true);
+            $('#lectures').removeClass('col-lg-6');
+            $('.schedule-details').removeAttr('data-toggle');
+            $('.schedule-details').removeAttr('data-target');
+            $('.lecture-details').removeAttr('data-toggle');
+            $('.lecture-details').removeAttr('data-target');
+            $('.student-details').removeAttr('data-toggle');
+            $('.student-details').removeAttr('data-target');
+            var id =["#add-schedule-icon","#add-record-icon","#add-student-record-icon"]
+            for (var i=0; i<id.length;i++){
+                $(id[i]).remove();
+            }
+        });
+    </script>
+    {% endif%}
+
+
+
+
+</body>
+</html>

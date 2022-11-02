@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/pre-includes.html" %}
+    <!--Page specific custom stylesheets-->
+    <link rel="stylesheet" href="static/css/forms.css" />
+</head>
+<body >
+    <main class="bg-light">
+        <section>
+            <div class="container-fluid row max-row-no-nav justify-content-around align-items-center">
+                <div class="col-10 col-sm-8 col-md-8 col-lg-7 col-xl-5 form-container">
+                    <a href="{{url_for('index')}}"><img src="static/resources/images/hadhir-logo.svg" /></a>
+                    {%if edit:%}
+                    <h2>{{__edit_account}}</h2>
+                    {%else:%}
+                    <h2>{{_register_header}}</h2>
+                    {%endif%}
+                    {% if not successful_registration %}
+                    {% if error is defined %}
+                    <p class="error-msg">{{error}}</p>
+                    {% endif %}
+                    <form action="{{url_for('register')}}"  method="post" enctype = "multipart/form-data" id="form-user">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                              <label >{{_first_name}}</label>
+                              <input type="text" class="form-control" name="first-name" id="first-name"  required>
+                            </div>
+                            <div class=" col-md-6">
+                              <label >{{_last_name}}</label>
+                              <input type="text" class="form-control" name="last-name" id="last-name" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label >{{_email}}</label>
+                                <input type="email" class="form-control" name="email" id="email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="institute_id">{{_institute_id}}</label>
+                                <input type="text" class="form-control" name="institute-id" id="institute_id" required>
+                            </div>
+                        </div>
+                        {% if edit : %}
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label >{{_old_password}}</label>
+                                <input type="password" class="form-control" name="user-old-password">
+                            </div>
+                            <div class="col-md-6">
+                                <label >{{_new_password}}</label>
+                                <input type="password" class="form-control" name="user-new-password">
+                            </div>
+                        </div>
+                        {% else:%}
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label>{{_password}}</label>
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label >{{_password_confirm}}</label>
+                                <input type="password" class="form-control" required>
+                            </div>
+                        </div>
+                        {% endif %}
+
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                {% if edit:%}
+                                <label >{{_institute_name}}</label>
+                                <input type="text" class="form-control" name="institute-name" value="{{institute_name}}" required disabled>
+                                {% else:%}
+                                <label >{{_institute_code}}</label>
+                                <input type="text" class="form-control" name="institute-code" required>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="type">{{_account_type}}</label>
+                                {% if edit:%}
+                                {% if user_account_type == "instructor" %}
+                                <input type="text" class="form-control" value="{{_instructor_type}}" required disabled>
+                                {% else: %}
+                                <input type="text" class="form-control" value="{{_student_type}}" required disabled>
+                                {% endif %}
+
+                                {% else: %}
+                                <div class="custom-control custom-radio custom-control-inline" role="group">
+                                    <input type="radio" class="custom-control-input" value="instructor" id="instructor"  name="type">
+                                    <label class="custom-control-label" for="instructor" >{{_instructor}}</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline" role="group">
+                                    <input type="radio" class="custom-control-input" id="student" value="student" name="type"  checked>
+                                    <label class="custom-control-label" for="student">{{_student}}</label>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <div id="attend-images">
+                            <h6 class="mt-3 text-danger">{{ _must_upload }}</h6>
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <label >{{_photo1}}</label>
+                                    <div class="file-content" id="file-content0">
+                                        <label class="file-upload" for="file0">
+                                            <input type="file" id="file0" class="files" name="file0"  style="display: none"  required>
+                                            <img src="{{ url_for('static',filename='resources/images/upload1.svg') }}" class="upload " id="first-img0" alt="photo" >
+                                            <img src="{{ url_for('static',filename='resources/images/upload.svg') }}" alt="photo" class="upload" id="second-img0" style="display: none">
+                                            <img src="" alt="photo" class="img-upload" id="img-upload0" style="display: none">
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label >{{_photo2}}</label>
+                                    <div class="file-content" id="file-content1">
+                                        <label class="file-upload" for="file1">
+                                            <input type="file" id="file1" class="files" name="file1"  style="display: none" required>
+                                            <img src="{{ url_for('static',filename='resources/images/upload1.svg') }}" class="upload " id="first-img1" alt="photo" >
+                                            <img src="{{ url_for('static',filename='resources/images/upload.svg') }}" alt="photo" class="upload" id="second-img1" style="display: none">
+                                            <img src="" alt="photo" class="img-upload" id="img-upload1" style="display: none">
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label >{{_photo3}}</label>
+                                    <div class="file-content" id="file-content2">
+                                        <label class="file-upload" for="file2">
+                                            <input type="file" class="files" id="file2" name="file2" style="display: none" required>
+                                            <img src="{{ url_for('static',filename='resources/images/upload1.svg') }}" class="upload " id="first-img2" alt="photo" >
+                                            <img src="{{ url_for('static',filename='resources/images/upload.svg') }}" alt="photo" class="upload" id="second-img2" style="display: none">
+                                            <img src="" alt="photo" class="img-upload" id="img-upload2" style="display: none">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button  class="form-control btn-lg"  type="submit" name="institute-submit" id="user-submit">
+                            {% if edit:%}
+                            {{_edit_btn}}
+                            {% else:%}
+                            {{_register_btn}}
+                            {% endif %}
+                        </button>
+                        {% if edit:%}
+                        <button  class="form-control btn-lg delete" type="button"  data-toggle="modal" data-target="#delete-confirm" >
+                            {{_delete_btn}}
+
+                        </button>
+                        {% endif %}
+                    </form>
+                    {%if not edit:%}
+                    <hr />
+                    <a href="{{url_for('login')}}">{{_login_reminder}}</a>
+                    {%endif%}
+                    {% else %}
+                    <p>{{_successful_registration}}</p>
+                    <hr />
+                    <a href="{{url_for('index')}}">{{_back}}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include "dashboard/modules/delete.html" %}
+    {% include "common/post-includes.html" %}
+    <script>
+        $(document).ready(function () {
+            var isImage0=false;
+            var isImage1=false;
+            var isImage2=false;
+
+
+
+            $('#file0').change(function() {
+                readURL(this,'#img-upload0');
+                isImage0=true;
+            });
+
+            $('#file-content0').hover(function () {
+                hover(isImage0,'#first-img0','#second-img0','#img-upload0');
+
+            });
+
+            $('#file-content0').mouseleave(function () {
+                mouseover(isImage0,'#first-img0','#second-img0','#img-upload0');
+            });
+
+            $('#file1').change(function() {
+                readURL(this,'#img-upload1');
+                isImage1=true;
+            });
+
+            $('#file-content1').hover(function () {
+                hover(isImage1,'#first-img1','#second-img1','#img-upload1');
+
+            });
+
+            $('#file-content1').mouseleave(function () {
+                mouseover(isImage1,'#first-img1','#second-img1','#img-upload1');
+            });
+
+
+            $('#file2').change(function() {
+                readURL(this,'#img-upload2');
+                isImage2=true;
+            });
+
+            $('#file-content2').hover(function () {
+                hover(isImage2,'#first-img2','#second-img2','#img-upload2');
+
+            });
+
+            $('#file-content2').mouseleave(function () {
+                mouseover(isImage2,'#first-img2','#second-img2','#img-upload2');
+            });
+
+            function readURL(input,file) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $(file).attr('src', e.target.result).show();
+
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            function hover(file_status,img1,img2,file_img) {
+                if (file_status) {
+                    $(img2).show();
+                    $(file_img).hide();
+
+                } else {
+                    $(img2).show();
+                    $(img1).hide();
+
+                }
+            }
+            function mouseover(file_status,img1,img2,file_img) {
+                if(file_status){
+                    $(img2).hide();
+                    $(file_img).show();
+                }
+                else{
+                    $(img2).hide();
+                    $(img1).show();
+                }
+            }
+
+            $('input[name=type]').click(function () {
+                if ($(this).val() === "instructor"){
+                    $('#attend-images').hide();
+                    $('.files').removeAttr('required')
+                }
+                else {
+                    $('#attend-images').show();
+                    $('.files').prop('required',true);
+                }
+            });
+
+        });
+    </script>
+    {% if edit:%}
+    <script>
+        $(document).ready(function () {
+            $("#first-name").val('{{user_first_name}}');
+            $("#last-name").val('{{user_last_name}}');
+            $("#email").val("{{user_email}}");
+            $("#institute_id").val("{{user_institute_id}}");
+            $("#institute_id").attr('disabled',true);
+            $('#user-submit').click(function () {
+                $('#form-user').attr('action',"{{url_for('edit_user')}}").submit();
+            });
+            $('#delete').click(function () {
+                $('#form-user').attr('action',"{{url_for('delete_user')}}").submit();
+            });
+        });
+    </script>
+
+    {% endif %}
+</body>
+
+
+</html>

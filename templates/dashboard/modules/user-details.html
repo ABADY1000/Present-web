@@ -1,0 +1,45 @@
+
+<!-- model for add lecture        -->
+<div class="modal fade " id="user-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable " role="document">
+        <div class="modal-content bg-light ">
+            <div class="modal-header section-info">
+                <h5 class="modal-title section-name" >{{_user_details}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body tables">
+                <div class="alert alert-danger user-details-error" style="display: none">{{_error_message}}</div>
+                <form   method="post" enctype = "multipart/form-data" id="user-details-form">
+                    <label >{{_name}}</label>
+                    <input type="text" class="form-control" name="name" id="user-details-name"  disabled>
+                    <label >{{_email}}</label>
+                    <input type="email" class="form-control" name="email" id="user-details-email" disabled>
+                    <label >{{_number}}</label>
+                    <input type="text" class="form-control" name="code" id="user-details-number" disabled>
+
+                    <label >{{_account_type}}</label>
+                    <input type="text" class="form-control" name="type" id="user-details-type"  disabled>
+                    <label class="label-check" >{{_activation}}</label>
+                    <input type="text" class="form-control" name="activation" id="user-details-activation" disabled>
+                </form>
+                <div id="user-attend-img">
+                    <h5 style="margin-top: 20px; min-height: 10px">{{_user_img}}</h5>
+                    <div id="user-images" class="row" >
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer form-container">
+                <input type="submit" class="btn gray" data-dismiss="modal" value="{{_cancel}}">
+                {% if session["account"]["account_type"]== "institute" %}
+                <input type="submit" class="btn red" id="delete-user-details-btn"  value="{{_delete}}">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

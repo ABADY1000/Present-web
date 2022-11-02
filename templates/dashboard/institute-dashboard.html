@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "common/pre-includes.html" %}
+    <!-- datatable-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/datatable/responsive.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable/responsive.bootstrap4.min.css')}}">
+    <!--Custom stylesheet-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/page-scroll.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/components-style.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/forms.css')}}" />
+</head>
+<body class="bg-light">
+    {% include "common/private-header.html" %}
+    <main class="container">
+        <section class="row section-info">
+            <div class="col-lg-4 col-md-12 col-12 section-name ">
+                {{account_name}}
+            </div>
+            <div class="col-lg-6 col-md-12 col-12 progress-bar-institute">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12 progress-name">
+                        {{_users}}
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-12">
+                        <div class="row text-center progress-type">
+                            <div class="col-6 text-center progress-type1">
+                               {{_students}}
+                            </div>
+                            <div class="col-6 text-center progress-type2">
+                                {{_instructors}}
+                            </div>
+                        </div>
+                        <div class="row progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{(num_student/(num_student+num_instructor))*100}}%;"
+                                 aria-valuenow="{{num_student}}" aria-valuemin="0" aria-valuemax="{{num_student+num_instructor}}"></div>
+                        </div>
+                        <div class="row  text-center">
+                            <div class="col-6 text-center progress-pers1">
+                               {{num_student}}
+                            </div>
+                            <div class="col-6 text-center progress-pers2">
+                                {{num_instructor}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="row">
+                    <div class="progress-name progress-circle-name ">
+                       {{_attendance}}
+                    </div>
+                    <div class="progress-circle position-relative  " data-value="{{attend_circle}}">
+                        <div class="position-absolute percentage">{{total_attend}}</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <hr>
+        <section class="row tables">
+            <div class="col-lg-6 col-md-12 col-12 margin">
+                <table id="table-users" class="table table-borderless table-sm nowrap ">
+                    <thead>
+                        <tr>
+                            <th>{{_number}}</th>
+                            <th>{{_name}}</th>
+                            <th>{{_email}}</th>
+                            <th>{{_account_type}}</th>
+                            <th>{{_activation}}</th>
+                            <th>{{_attendance}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in range(institute_users|length)%}
+                    <tr>
+                        <td>{{institute_users[i][1]}}</td>
+                        <td data-toggle="modal" data-target="#user-details" class="user-details" data-id="{{institute_users[i][0]}}">{{institute_users[i][2]}} {{institute_users[i][3]}}</td>
+                        <td data-toggle="modal" data-target="#user-details" class="user-details" data-id="{{institute_users[i][0]}}">{{institute_users[i][4]}}</td>
+                        {% if institute_users[i][5] == "instructor" %}
+                            <td data-toggle="modal" data-target="#user-details" class="user-details" data-id="{{institute_users[i][0]}}">{{_instructor_type}}</td>
+                        {%else:%}
+                            <td data-toggle="modal" data-target="#user-details" class="user-details" data-id="{{institute_users[i][0]}}">{{_student_type}}</td>
+                        {%endif%}
+                        {%if institute_users[i][6]:%}
+                        <td data-toggle="modal" data-target="#user-details" class="user-details" data-id="{{institute_users[i][0]}}"><img src="{{url_for('static',filename='resources/images/right.svg')}}" height="20px" width="20px"></td>
+                        {%else:%}
+                        <td>
+                            <a data-toggle="modal" data-target="#delete-confirm" class="delete-user" data-id="{{institute_users[i][0]}}"><img src="{{url_for('static',filename='resources/images/wrong.svg')}}" height="20px" width="20px"></a>
+                            <a data-toggle="modal" data-target="#add-confirm" class="accept-user" data-id="{{institute_users[i][0]}}"><img src="{{url_for('static',filename='resources/images/right.svg')}}" height="20px" width="20px"></a>
+                        </td>
+                        {% endif %}
+                        {% if institute_users[i][5] == "instructor" %}
+                            <td data-toggle="modal" data-target="#user-details" class="user-details" data-id="{{institute_users[i][0]}}">---</td>
+                        {% else: %}
+                            <td data-toggle="modal" data-target="#user-details" class="user-details" data-id="{{institute_users[i][0]}}">{{attend_user[i]}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12">
+                <div class="  margin">
+                    <table id="table-courses" class="table table-borderless table-sm nowrap " >
+                        <thead>
+                            <tr>
+                                <th>{{_number}}</th>
+                                <th>{{_code}}</th>
+                                <th>{{_name}}</th>
+                                <th>{{_instructor}}</th>
+                                <th>{{_students}}</th>
+                                <th>{{_attendance}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in range(institute_sections|length)%}
+                            <tr>
+                                <td>{{institute_sections[i][1]}}</td>
+                                <td onclick="window.location='section-details/{{institute_sections[i][0]}}'">{{institute_sections[i][2]}}</td>
+                                <td onclick="window.location='section-details/{{institute_sections[i][0]}}'">{{institute_sections[i][3]}}</td>
+                                <td onclick="window.location='section-details/{{institute_sections[i][0]}}'">{{institute_sections[i][4]}} {{institute_sections[i][5]}}</td>
+                                <td onclick="window.location='section-details/{{institute_sections[i][0]}}'">{{institute_sections[i][6]}}</td>
+                                <td onclick="window.location='section-details/{{institute_sections[i][0]}}'">{{attend_section[i]}}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="margin">
+                    <table id="table-classes" class="table table-borderless table-sm nowrap ">
+                        <thead>
+                            <tr>
+                                <th>{{_number}}</th>
+                                <th class="big-row">{{_camera_number}}</th>
+                                <th>{{_state}}</th>
+                                <th>{{_has_lecture}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in range(institute_classrooms|length)%}
+                            <tr>
+                                <td>{{institute_classrooms[i][1]}}</td>
+                                <td onclick="window.location='class-details/{{institute_classrooms[i][0]}}'">{{institute_classrooms[i][2]}}</td>
+                                <td onclick="window.location='class-details/{{institute_classrooms[i][0]}}'">{{institute_classrooms[i][3]}}</td>
+                                {% if institute_classrooms[i][4] %}
+                                    <td>{{_lecture_found}}</td>
+                                {% else %}
+                                    <td> {{_no_lecture}}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        {% for i in range(other_classroom|length)%}
+                            <tr>
+                                <td>{{other_classroom[i][1]}}</td>
+                                <td onclick="window.location='class-details/{{other_classroom[i][0]}}'">{{other_classroom[i][2]}}</td>
+                                <td onclick="window.location='class-details/{{other_classroom[i][0]}}'">{{other_classroom[i][3]}}</td>
+                                <td> {{_no_lecture}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include "/dashboard/modules/delete.html" %}
+    {% include "/dashboard/modules/user-details.html" %}
+    {% include "/dashboard/modules/add.html" %}
+    {% include "/dashboard/modules/class-add.html" %}
+    {% include "/dashboard/modules/class-details.html" %}
+    {% include "/dashboard/modules/section-add.html" %}
+    {% include "/common/post-includes.html" %}
+    <!-- datatable-->
+    <script src="{{url_for('static', filename='js/datatable/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/datatable/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/datatable/dataTables.responsive.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/datatable/responsive.bootstrap4.min.js')}}"></script>
+    <!-- progress   -->
+    <script src="{{url_for('static', filename='js/progress/circle-progress.min.js')}}"></script>
+    {% if local == "arabic" %}
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    {% else %}
+    <script src="{{url_for('static', filename='js/main-en.js')}}"></script>
+    {% endif %}
+    <script>
+        $(document).ready(function () {
+            var id ="";
+            $('.delete-user').click(function () {
+                id=$(this).data('id')
+            });
+            $('.accept-user').click(function () {
+                id=$(this).data('id')
+            });
+            $('#add').click(function () {
+                window.location.href="/activate-user/"+id;
+                console.log("activate")
+            });
+            $('#delete').click(function () {
+                window.location.href="/deactivate-user/"+id;
+                console.log("deactivate")
+            });
+            $('#add-class').click(function () {
+                $('.add-class-form').attr('action','/class-add').submit();
+
+            });
+            // $('.find-class').click(function (event) {
+            //     $.ajax({
+            //         url:"/class-details/"+$(this).data('id'),
+            //         type:'GET',
+            //     })
+            //     .done(function (data) {
+            //         if (data.error){
+            //             $('.class-error').show();
+            //             console.log(data.error)
+            //         }
+            //         else {
+            //             $('#class-number').attr('value',data.classroom_num);
+            //             $('#camera-number').attr('value',data.camera_num);
+            //         }
+            //     });
+            //     event.preventDefault()
+            // });
+
+            $('#section-add-btn').click(function (event) {
+                $('#section-instructor').empty();
+                $.ajax({
+                    url:"/section-add",
+                    type:'GET',
+                })
+                    .done(function (data) {
+                        if (data.error){
+                            $('.section-error').show();
+                        }
+                        else {
+                            for (var i =0 ; i<data.instructors.length;i++){
+                                $("#section-instructor")
+                                    .append("<option value='"+data.instructors[i][0]+"'>"+data.instructors[i][1]
+                                        +" " +data.instructors[i][2] +"</option>")
+                            }
+                        }
+                    });
+                event.preventDefault()
+            });
+            $('#add-section').click(function () {
+                $('.add-section-form').attr('action','/section-add').submit();
+            });
+
+            $('.user-details').click(function (event) {
+                $("#user-details-name").empty();
+                $("#user-details-number").empty();
+                $("#user-details-activation").empty();
+                $("#user-details-email").empty();
+                $("#user-details-type").empty();
+                $('#user-images').empty();
+                $.ajax({
+                    url:"/user-details/"+$(this).data('id'),
+                    type:'GET',
+                })
+                    .done(function (data) {
+                        if (data.error){
+                            $('.user-details-error').show();
+                            console.log(data.error)
+                        }
+                        else {
+                            console.log(data);
+                            $("#user-details-name").attr('value',data.user[0][2]+" "+data.user[0][3]);
+                            $("#user-details-email").attr('value',data.user[0][4]);
+                            $("#user-details-number").attr('value',data.user[0][2]);
+                            $("#user-details-type").attr('value',data.types[data.user[0][5]]);
+
+                            if(data.user[0][7]){
+                                $("#user-details-activation").attr('value',data.activation["active"]);
+                            }
+                            else {
+                                $("#user-details-activation").attr('value',data.activation["non-active"]);
+                            }
+                            if(data.user[0][5] === "instructor"){
+                                $("#user-attend-img").hide();
+                            }
+                            else {
+                                for(var i=0 ;i< data.images.length;i++){
+                                    $("#user-attend-img").show();
+                                    $('#user-images').append("<div class='col-12 col-md-4'>" +
+                                        "<img src='"+data.images[i]+"' width='100%' height='100%'></div>");
+                                }
+                            }
+
+                        }
+                    });
+                event.preventDefault()
+            });
+
+            $('#delete-user-details-btn').click(function () {
+
+                $('#user-details-form').attr('action','/delete-active-user').submit();
+            });
+
+        });
+    </script>
+</body>
+</html>

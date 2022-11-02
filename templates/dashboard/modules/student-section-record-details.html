@@ -1,0 +1,47 @@
+
+<!-- model for add student        -->
+<div class="modal fade " id="edit-student-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable " role="document">
+        <div class="modal-content bg-light ">
+            <div class="modal-header section-info">
+                <h5 class="modal-title section-name" >{{_student_add}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body tables">
+                <div class="alert alert-danger student-details-error" style="display: none">{{_error_message}}</div>
+                <form class="form-container edit-student-form" method="post">
+                    <label>{{_student}}</label>
+                    <input type="hidden" id="student-value" name="student">
+                    <input type="text" class="form-control"  id="student-details" disabled>
+
+                    <h1 class="model-name">{{_lectures}}</h1>
+                    <hr>
+
+                    <table id="table-lecture-edit" class="table table-borderless table-sm nowrap ">
+                        <thead>
+                        <tr>
+                            <th>{{_table_header_date}}</th>
+                            <th>{{_table_header_time}}</th>
+                            <th>{{_table_header_attendance}}</th>
+                            <th>{{_table_header_total}}</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table-lecture-details-body">
+
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
+            <div class="modal-footer form-container">
+                {% if session["account"]["account_type"]== "institute" %}
+                <input type="submit" class="btn red" id="delete-student-btn"  value="{{_delete}}">
+                {% endif %}
+                <input type="submit" class="btn gray" data-dismiss="modal" value="{{_cancel}}">
+                <input type="submit" class="btn green" id="edit-student-btn" value="{{_edit}}">
+            </div>
+        </div>
+    </div>
+</div>

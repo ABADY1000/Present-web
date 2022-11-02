@@ -1,0 +1,89 @@
+﻿:root {
+    --theme-primary: #549a52;
+    --theme-primary-darken: #327830;
+    --theme-contrast: #f8f9fa;
+    --theme-gold: #a19951;
+    --theme-silver: #7b909c;
+    --theme-accept: #549a52;
+    --theme-reject: #c1272d;
+}
+
+@font-face {
+    font-family: 'gess-normal';
+    src: url(../resources/fonts/GE_SS_Two_Medium.otf);
+}
+
+@font-face {
+    font-family: 'gess-light';
+    src: url(../resources/fonts/GE_SS_Two_Light.otf);
+}
+
+@font-face {
+    font-family: 'gess-bold';
+    src: url(../resources/fonts/GE_SS_Two_Bold.otf);
+}
+
+* {
+    font-family: gess-light;
+    text-align: right;
+}
+/*body{*/
+/*        direction: rtl;*/
+/*}*/
+
+a {
+    color: var(--theme-primary)
+}
+
+p.error-msg {
+    color: red;
+}
+
+a:hover {
+    color: var(--theme-primary-darken)
+}
+
+button {
+    text-align: center;
+}
+
+.navbar {
+    background: var(--theme-primary);
+}
+
+.navbar .navbar-brand img {
+    height: 3.5rem;
+}
+
+.max-row {
+    min-height: 88vh;
+}
+
+.max-row-no-nav {
+    min-height: 100vh;
+}
+
+footer .row {
+    padding: 20px 0 20px 0;
+}
+footer .right-footer{
+    text-align: right !important;
+}
+footer .left-footer{
+    text-align: left !important;
+}
+
+@media (max-width:  768px) {
+    footer .right-footer{
+        text-align: center !important;
+    }
+    footer .left-footer{
+        text-align: center !important;
+    }
+}
+footer span, footer a, .navbar a{
+    color: rgba(255,255,255,0.6) !important;
+}
+footer span:hover, footer a:hover, .navbar a:hover {
+    color: rgba(255,255,255,0.9) !important;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/pre-includes.html" %}
+    <!--Custom stylesheet-->
+    <link rel="stylesheet" href="static/css/forms.css" />
+</head>
+<body>
+    <main class="bg-light">
+        <section>
+            <div class="container-fluid row max-row-no-nav justify-content-around align-items-center">
+                <div class="col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3 form-container">
+                    <a href="{{url_for('index')}}"><img src="static/resources/images/hadhir-logo.svg" /></a>
+                    <h2>اتصل بنا</h2>
+                    <form>
+                        <label for="contact-name">الإسم</label>
+                        <input type="text" class="form-control" name="contact-name" required>
+                        <label for="contact-email">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" name="contact-email" required>
+                        <label for="contact-message">الرسالة</label>
+                        <textarea class="form-control" rows="3" name="contact-message" required></textarea>
+
+                        <button class="form-control btn-lg"  type="submit" name="contact-submit">إرسال</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include "/common/post-includes.html" %}
+</body>
+</html>

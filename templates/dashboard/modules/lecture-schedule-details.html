@@ -1,0 +1,40 @@
+<!-- Modal of edit lecture date -->
+<div class="modal fade" id="edit-lecture-date" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content bg-light">
+            <div class="modal-header section-info">
+                <h5 class="modal-title section-name" >{{_schedule_details}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="alert alert-danger schedule-details-error" style="display: none">{{_error_message}}</div>
+                    <form class="form-container edit-schedule-form" method="post">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label>{{_start}}</label>
+                                <input type="text" class="form-control" name="start-time" id="start-time" placeholder=" HH:MM: " required>
+                            </div>
+                            <div class=" col-md-6">
+                                <label >{{_end}}</label>
+                                <input type="text" class="form-control" name="end-time" id="end-time" placeholder=" HH:MM " required>
+                            </div>
+                        </div>
+                        <label>{{_day}}</label>
+                        <select class="form-control" id="day" name="day">
+                        </select>
+                        <label>{{_classroom}}</label>
+                        <select class="form-control" id="classrooms-details" name="classroom">
+                        </select>
+                    </form>
+            </div>
+            <div class="modal-footer form-container">
+                <input type="submit" class="btn red"  value="{{_delete}}" id="delete-schedule">
+                <input type="submit" class="btn gray" data-dismiss="modal" value="{{_cancel}}" style="margin-right: auto;">
+                <input type="submit" class="btn green" value="{{_edit}}" id="edit-schedule">
+            </div>
+        </div>
+    </div>
+</div>

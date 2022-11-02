@@ -1,0 +1,40 @@
+<header>
+    <nav id="navbar" class="navbar navbar-expand-sm navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{url_for('index')}}">
+                <img src="{{url_for('static',filename='resources/images/hadhir-logo-white.svg')}}" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="nav" class="collapse navbar-collapse private-nav">
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item">
+                        <a href="{{url_for('index')}}" class="nav-link">{{_home}}</a>
+                    </li>
+                    <li class="nav-item mr-md-auto dropdown">
+
+                        <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% if show_profile_image %}
+                            <img src="{{account_image}}" class="personal-img" width="30px" height="30px">
+                            {% endif %}
+                            {{account_name}}
+                        </a>
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">{{_messages}}</a>
+                            {% if session["account"]["account_type"] == "institute"%}
+                            <a class="dropdown-item" href="{{url_for('edit_institute')}}">{{_settings}}</a>
+                            {% else :%}
+                            <a class="dropdown-item" href="{{url_for('edit_user')}}">{{_settings}}</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{url_for('logout')}}">{{_logout}}</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>

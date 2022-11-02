@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "common/pre-includes.html" %}
+    <!-- datatable-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/datatable/responsive.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable/responsive.bootstrap4.min.css')}}">
+    <!--Custom stylesheet-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/datatable.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/page-scroll.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/components-style.css')}}" />
+</head>
+<body class="bg-light">
+    {% include "common/private-header.html" %}
+    <main class="container">
+        <section class="row section-info">
+            <div class="col-md-6 col-12 section-name ">
+                {{account_name}}
+            </div>
+            <div class="col-md-6 col-12 ">
+                <div class="row">
+                    <div class="progress-name progress-circle-name ">
+                        {{_attendance}}
+                    </div>
+                    <div class="progress-circle position-relative " data-value="{{attend_circle}}">
+                        <div class="position-absolute percentage">
+                            {{total_attend}}
+                        </div>
+                    </div>
+            </div>
+        </section>
+        <hr>
+        <section class=" tables">
+            <table id="instructor-courses" class="table table-borderless table-sm nowrap ">
+                <thead>
+                    <tr>
+                        <td>{{_number}}</td>
+                        <td>{{_code}}</td>
+                        <td>{{_name}}</td>
+                        <td>{{_students}}</td>
+                        <td>{{_attendance}}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for i in range(instructor_sections|length)%}
+                <tr>
+                    <td >{{instructor_sections[i][1]}}</td>
+                    <td onclick="window.location='section-details/{{instructor_sections[i][0]}}'">{{instructor_sections[i][2]}}</td>
+                    <td onclick="window.location='section-details/{{instructor_sections[i][0]}}'">{{instructor_sections[i][3]}}</td>
+                    <td onclick="window.location='section-details/{{instructor_sections[i][0]}}'">{{instructor_sections[i][4]}}</td>
+                    <td onclick="window.location='section-details/{{instructor_sections[i][0]}}'">{{attend_section[i]}}</td>
+                </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+
+        </section>
+    </main>
+    {% include "/common/post-includes.html" %}
+    <!-- datatable-->
+    <script src="{{url_for('static', filename='js/datatable/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/datatable/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/datatable/dataTables.responsive.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/datatable/responsive.bootstrap4.min.js')}}"></script>
+    <!-- progress   -->
+    <script src="{{url_for('static', filename='js/progress/circle-progress.min.js')}}"></script>
+    {% if local == "arabic" %}
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    {% else %}
+    <script src="{{url_for('static', filename='js/main-en.js')}}"></script>
+    {% endif %}
+</body>
+</html>

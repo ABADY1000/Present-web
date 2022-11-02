@@ -1,0 +1,32 @@
+<!-- Modal of add class -->
+<div class="modal fade " id="add-class-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable " role="document">
+        <div class="modal-content bg-light">
+            <div class="modal-header section-info">
+                <h5 class="modal-title section-name" >{{_add_class}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-container add-class-form" method="post">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label>{{_number}}</label>
+                            <input type="text" class="form-control" name="class-number" required>
+                        </div>
+                        <div class=" col-md-6">
+                            <label >{{_camera_number}}</label>
+                            <input type="text" class="form-control" name="camera-number" required>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="modal-footer form-container">
+                    <input type="submit" class="btn gray" data-dismiss="modal" value="{{_cancel}}">
+                    <input type="submit" class="btn green" id="add-class" value="{{_add}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "common/pre-includes.html" %}
+    <!--Animate on scroll-->
+    <link href="{{url_for('static', filename='css/aos/aos.css')}}" rel="stylesheet">
+    <!--Page specific custom stylesheets-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/homepage.css')}}" />
+</head>
+<body>
+    {% include "common/public-header.html" %}
+    <main class="bg-light">
+        <section class="why-section">
+            <div class="container">
+                <div class="row max-row align-items-center">
+                    <div class="col-md-6 col-12  why-content" data-aos="fade-up" data-aos-duration='2000'>
+                        <h1 class="display-4">{{_landing_header}}</h1>
+                        <p>{{_landing_desc}}</p>
+                        <p><a class="btn btn-lg smooth-scroll" href="#features-section" role="button">{{_landing_btn}}</a></p>
+                    </div>
+                    <div class="col-md-6 col-12  canvas">
+                        <img src="{{url_for('static', filename='resources/images/classroom_teacher.svg')}}" data-aos="fade-down" data-aos-duration='1000' data-aos-delay="100"/>
+                        <img src="{{url_for('static', filename='resources/images/classroom_larrow.svg')}}"  data-aos="fade-up-right" data-aos-duration='1000' data-aos-delay="900"/>
+                        <img src="{{url_for('static', filename='resources/images/classroom_carrow.svg')}}"  data-aos="fade-up-right" data-aos-duration='1000' data-aos-delay="1000"/>
+                        <img src="{{url_for('static', filename='resources/images/classroom_rarrow.svg')}}"  data-aos="fade-up-right" data-aos-duration='1000' data-aos-delay="1100"/>
+                        <img src="{{url_for('static', filename='resources/images/classroom_lstudent.svg')}}"  data-aos="fade-left" data-aos-duration='1000' data-aos-delay="200"/>
+                        <img src="{{url_for('static', filename='resources/images/classroom_rstudent.svg')}}"  data-aos="fade-right" data-aos-duration='1000' data-aos-delay="300"/>
+                        <img src="{{url_for('static', filename='resources/images/classroom_cstudent.svg')}}"  data-aos="fade-up" data-aos-duration='1000' data-aos-delay="400"/>
+                        <img src="{{url_for('static', filename='resources/images/classroom_camera.svg')}}"  data-aos="fade-down-left" data-aos-duration='1000' data-aos-delay="500"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="features-section" class="features-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg col-md-12 col-12  feature-card" data-aos="zoom-in-down" data-aos-duration='2000'>
+                        <p>
+                            <img src="{{url_for('static', filename='resources/images/face-recognition.svg')}}"/>
+                        </p>
+                        <p>{{_feature1_desc}}</p>
+                    </div>
+                    <div class="col-lg col-md-12 col-12  feature-card" data-aos="zoom-in-down" data-aos-duration='2000' data-aos-delay='200'>
+                        <p>
+                            <img src="{{url_for('static', filename='resources/images/shield.svg')}}"/>
+                        </p>
+                        <p>{{_feature2_desc}}</p>
+                    </div>
+                    <div class="col-lg col-md-12 col-12  feature-card" data-aos="zoom-in-down" data-aos-duration='2000' data-aos-delay='400'>
+                        <p>
+                            <img src="{{url_for('static', filename='resources/images/computer.svg')}}"/>
+                        </p>
+                        <p>{{_feature3_desc}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="order-camera position-relative" >
+<!--            <img src="resources/images/classroom-crop.png" class="img-fluid img-order ">-->
+            <div class="overlay position-absolute "></div>
+            <div class="order-content text-center position-absolute" data-aos="zoom-in-down" data-aos-duration='2000'>
+                <p class="text-center">
+                    {{_order_header}}<br>{{_order_subheader}}
+                </p>
+                <button class="btn btn-lg font-weight-bold">{{_order_btn}}</button>
+            </div>
+        </section>
+        <section class="features-section subs-section">
+            <div class="container">
+                <div class="row justify-content-center" data-aos="zoom-in-down" data-aos-duration='2000' data-aos-delay='100'>
+                    <h1 class="text-center font-weight-bold">{{_register_header}}</h1>
+                </div>
+                <div class="row">
+                    <div class="col-lg col-md-12 col-12  feature-card text-center" data-aos="zoom-in-down" data-aos-duration='2000' data-aos-delay='400'>
+                        <h2 class="text-center font-weight-bold">{{_package1_header}}</h2>
+                        <ul type="none" class="text-right subs-list">
+                            <li><img src="{{url_for('static', filename='resources/images/study.svg')}}" >{{_package1_feature1}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/teacher-pointing-blackboard.svg')}}" >{{_package1_feature2}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/camera.svg')}}" >{{_package1_feature3}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/help.svg')}}" >{{_package1_feature4}}</li>
+                        </ul>
+                        <a href="{{url_for('institute_register', package='premium')}}" class="btn btn-gold font-weight-bold btn-lg">{{_package1_btn}}</a>
+                        <h6 class="text-center">{{_package1_price}}</h6>
+                    </div>
+                    <div class="col-lg col-md-12  col-12  feature-card text-center" data-aos="zoom-in-down" data-aos-duration='2000' data-aos-delay='200'>
+                        <h2 class="text-center font-weight-bold">{{_package2_header}}</h2>
+                        <ul type="none" class="text-right subs-list">
+                            <li><img src="{{url_for('static', filename='resources/images/study.svg')}}" >{{_package2_feature1}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/teacher-pointing-blackboard.svg')}}" >{{_package2_feature2}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/camera.svg')}}" >{{_package2_feature3}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/help.svg')}}" >{{_package2_feature4}}</li>
+                        </ul>
+                        <a href="{{url_for('institute_register', package='standard')}}" class="btn btn-sliver font-weight-bold btn-lg">{{_package2_btn}}</a>
+                        <h6 class="text-center">{{_package2_price}}</h6>
+                    </div>
+                    <div class="col-lg col-md-12  col-12  feature-card text-center" data-aos="zoom-in-down" data-aos-duration='2000' data-aos-delay='200'>
+                        <h2 class="text-center font-weight-bold">{{_package3_header}}</h2>
+                        <ul type="none" class="text-right subs-list">
+                            <li><img src="{{url_for('static', filename='resources/images/study.svg')}}" >{{_package3_feature1}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/teacher-pointing-blackboard.svg')}}" >{{_package3_feature2}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/camera.svg')}}" >{{_package3_feature3}}</li>
+                            <li><img src="{{url_for('static', filename='resources/images/help.svg')}}" >{{_package3_feature4}}</li>
+                        </ul>
+                        <a href="{{url_for('institute_register', package='free')}}" class="btn font-weight-bold btn-lg">{{_package3_btn}}</a>
+                        <h6 class="text-center">{{_package3_price}}</h6>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    {% include "/common/footer.html" %}
+    {% include "/common/post-includes.html" %}
+    <!--Animate on scroll-->
+    <script src="{{url_for('static', filename='js/aos/aos.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            AOS.init({ once: true, });
+        });
+        function scrollToElement(selector) {
+            $('html, body').animate({
+                scrollTop: $(selector).offset().top
+            }, 1000);
+        };
+        $(document).on('click', 'a.smooth-scroll', function () {
+            scrollToElement($(this).attr('href'));
+        });
+    </script>
+</body>
+</html>

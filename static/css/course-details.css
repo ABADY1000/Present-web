@@ -1,0 +1,23 @@
+/*.course-info .progress-name{*/
+/*    margin-right: auto;*/
+/*}*/
+.course-details .form-container{
+    margin: 0;
+}
+.course-details .form-container select{
+    margin-bottom: 30px;
+}
+.course-details .buttons{
+    margin-bottom: 35px;
+    margin-top: 35px;
+}
+.course-details .buttons .red{
+    margin-right: 20px;
+}
+.course-details .buttons .gray{
+    margin-right: auto;
+    margin-left: 20px;
+}
+.course-details .buttons .green{
+    margin-left: 20px;
+}

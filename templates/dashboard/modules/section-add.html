@@ -1,0 +1,41 @@
+<!-- Modal of add lecture date -->
+<div class="modal fade " id="section-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable " role="document">
+        <div class="modal-content bg-light">
+            <div class="modal-header section-info">
+                <h5 class="modal-title section-name" >{{_section_add}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger section-error" style="display: none">{{_error_message}}</div>
+                <form class="form-container add-section-form" method="post">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="section-number">{{_section_number}}</label>
+                            <input type="text" class="form-control editable" id="section-number" name="section-number" required >
+                        </div>
+                        <div class=" col-md-6">
+                            <label for="section-course-number" >{{_course_number}}</label>
+                            <input type="text" class="form-control editable" id="section-course-number" name="course-number" required>
+                        </div>
+                    </div>
+
+                    <label for="section-course-name">{{_course_name}}</label>
+                    <input type="text" class="form-control editable" id="section-course-name" name="course-name" required>
+
+                    <label for="section-instructor" class="remove-instructor" >{{_section_instructor}}</label>
+                    <select name="section-instructor" id="section-instructor" class="form-control">
+
+                    </select>
+
+                </form>
+            </div>
+            <div class="modal-footer form-container">
+                <input type="submit" class="btn gray" data-dismiss="modal" value="{{_cancel}}">
+                <input type="submit" class="btn green" id="add-section" value="{{_add}}">
+            </div>
+        </div>
+    </div>
+</div>

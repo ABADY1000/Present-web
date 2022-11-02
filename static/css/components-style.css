@@ -1,0 +1,117 @@
+/*.navbar-brand img{*/
+/*    min-width: 100px;*/
+/*    min-height: 100px;*/
+/*}*/
+/*drop menu in nav*/
+.dropdown-menu{
+    background-color: var(--theme-primary);
+    border: none !important;
+}
+.dropdown-menu a:hover{
+    background-color: inherit;
+    color: rgba(255,255,255,1);
+}
+.private-nav .personal-img{
+    border-radius: 50%;
+    margin-left: 10px;
+
+}
+
+
+/*institute information*/
+.section-info{
+    margin-top: 20px;
+}
+.section-info .section-name{
+    font-weight: bold;
+    font-size: 30px;
+    color: var(--theme-primary);
+    padding-top: 5px;
+}
+.model-name{
+    font-weight: bold;
+    font-size: 25px;
+    color: var(--theme-primary);
+    padding-top: 15px;
+}
+@media (max-width: 992px) {
+    .section-info .section-name{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+.section-info  .progress-name{
+    color: var(--secondary);
+    margin-top: 15px;
+    font-weight: bold;
+}
+@media (max-width: 768px ){
+    .section-info  .progress-name{
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 20px;
+    }
+}
+.section-info .progress-bar-institute .progress-type1{
+    color: var(--theme-primary);
+    font-weight: bold;
+}
+.section-info .progress-bar-institute .progress-type2{
+    font-weight: bold;
+    color: #4e555b;
+}
+.section-info .progress-bar-institute .progress{
+    background-color: #4e555b;
+    height: 0.5rem;
+}
+
+.section-info .progress-bar-institute .progress .progress-bar{
+    background-color: var(--theme-primary);
+}
+.section-info .progress-bar-institute .progress-pers1{
+    color: var(--theme-primary);
+    font-weight: bold;
+}
+.section-info .progress-bar-institute .progress-pers2{
+    font-weight: bold;
+    color: #4e555b;
+}
+@media (max-width: 992px ){
+    .section-info .progress-bar-institute .progress-pers2{
+        margin-bottom: 20px;
+    }
+}
+.section-info .progress-circle-name{
+    margin-right: auto;
+}
+.section-info .percentage{
+    z-index: 10;
+    top: 32%;
+    left: 20%;
+}
+.section-info .progress-circle-name{
+    margin-left: 20px;
+
+
+}
+@media (max-width: 992px ){
+    .section-info .progress-circle{
+        margin-left: auto;
+    }
+    .section-info .progress-circle-name{
+        margin-right:auto ;
+    }
+}
+
+/*tables using datatable*/
+
+
+
+
+
+
+
+
+
+
+
